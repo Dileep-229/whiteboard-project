@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Whiteboard</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<h1>Realtime Whiteboard</h1>
+
+
+<!-- ROOM PAGE -->
+
+<div id="roomPage">
+
+    <div class="room-container">
+
+
+        <!-- CREATE ROOM -->
+
+        <div class="room-box">
+
+    <h2>Create Room</h2>
+
+    <!-- username -->
+    <input
+    type="text"
+    id="createUserName"
+    placeholder="Your Name">
+
+    <!-- room name -->
+    <input
+    type="text"
+    id="createRoomName"
+    placeholder="Room Name">
+
+    <!-- password -->
+    <input
+    type="password"
+    id="createRoomPassword"
+    placeholder="Password">
+
+    <button onclick="createRoom()">
+    Create Room
+    </button>
+
+</div>
+
+
+        <!-- JOIN ROOM -->
+
+        <div class="room-box">
+
+    <h2>Join Room</h2>
+
+    <!-- username -->
+    <input
+    type="text"
+    id="joinUserName"
+    placeholder="Your Name">
+
+    <!-- room -->
+    <input
+    type="text"
+    id="joinRoomName"
+    placeholder="Room Name">
+
+    <!-- password -->
+    <input
+    type="password"
+    id="joinRoomPassword"
+    placeholder="Password">
+
+    <button onclick="joinRoom()">
+    Join Room
+    </button>
+
+</div>
+
+    </div>
+
+</div>
+
+
+
+<!-- WHITEBOARD PAGE -->
+
+<div id="whiteboardPage" style="display:none;">
+
+
+    <!-- CONTROLS -->
+
+    <div class="controls">
+
+        <button onclick="addStickyNote()">
+        Add Note
+        </button>
+
+        <button onclick="copyRoomLink()">
+        Copy Link
+        </button>
+
+        <input
+        type="color"
+        id="colorPicker"
+        value="#000000">
+
+        <button onclick="useEraser()">
+        Eraser
+        </button>
+
+        <button onclick="setTool('pen')">
+        Pen
+        </button>
+
+        <button onclick="setTool('rectangle')">
+        Rectangle
+        </button>
+
+        <button onclick="setTool('circle')">
+        Circle
+        </button>
+
+        <button onclick="setTool('line')">
+        Line
+        </button>
+
+        <input
+        type="range"
+        id="brushSize"
+        min="1"
+        max="20"
+        value="2">
+
+        <span id="sizeValue">
+        2
+        </span>
+
+        <button onclick="clearBoard()">
+        Clear
+        </button>
+
+        <button onclick="downloadImage()">
+        Save
+        </button>
+
+        <button onclick="undo()">
+        Undo
+        </button>
+
+        <button onclick="redo()">
+        Redo
+        </button>
+        <button onclick="toggleUsers()"> Users </button>
+
+    </div>
+
+
+
+    <h3 id="userCount">
+Users online: 0
+</h3>
+
+<div
+id="usersPanel"
+style="
+display:none;
+background:white;
+padding:10px;
+border:1px solid black;
+width:250px;
+margin:auto;
+margin-bottom:10px;
+">
+</div>
+
+
+
+    <!-- CANVAS -->
+
+    <canvas
+    id="board"
+    width="1000"
+    height="500">
+    </canvas>
+
+
+
+    <!-- CHAT -->
+
+    <div
+    id="chatBox"
+    style="
+    height:200px;
+    overflow-y:auto;
+    border:1px solid black;
+    margin-top:10px;
+    padding:10px;
+    ">
+    </div>
+
+
+    <input
+    id="messageInput"
+    placeholder="Type message">
+
+    <button onclick="sendMessage()">
+    Send
+    </button>
+
+
+
+    <!-- NOTES -->
+
+    <div id="notesContainer"></div>
+
+
+    <!-- CURSOR -->
+
+    <div id="cursorContainer"></div>
+
+</div>
+
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="script.js"></script>
+</body>
+
+</html>
