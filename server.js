@@ -100,11 +100,25 @@ roomUsers[roomName]=[];
 }
 
 
+// username already exists
+if(
+roomUsers[roomName].includes(
+data.userName
+)
+){
+
+socket.emit(
+"roomError",
+"Username already exists"
+);
+
+return;
+
+}
 // add user
 roomUsers[roomName].push(
 data.userName
 );
-
 
 // send users list
 io.to(roomName).emit(
@@ -195,7 +209,6 @@ roomName;
 socket.userName=
 data.userName;
 
-
 // create users array
 if(!roomUsers[roomName]){
 
@@ -203,6 +216,22 @@ roomUsers[roomName]=[];
 
 }
 
+
+// username already exists
+if(
+roomUsers[roomName].includes(
+data.userName
+)
+){
+
+socket.emit(
+"roomError",
+"Username already exists"
+);
+
+return;
+
+}
 
 // add user
 roomUsers[roomName].push(
@@ -215,7 +244,6 @@ io.to(roomName).emit(
 "usersList",
 roomUsers[roomName]
 );
-
 
 // send joined
 socket.emit(

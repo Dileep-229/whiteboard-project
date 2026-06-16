@@ -322,19 +322,14 @@ document.getElementById(
 "usersPanel"
 );
 
-
 panel.innerHTML=
 "<h3>Total Users: "
 +
 users.length+
 "</h3>";
 
-
-// show all users
 users.forEach(user=>{
 
-
-// current user
 if(user===userName){
 
 panel.innerHTML+=
@@ -343,9 +338,6 @@ user+
 " YOU)</div>";
 
 }
-
-
-// other users
 else{
 
 panel.innerHTML+=
@@ -359,7 +351,44 @@ user+
 
 });
 
+// show all users
+socket.on(
+"usersList",
+(users)=>{
 
+const panel=
+document.getElementById(
+"usersPanel"
+);
+
+panel.innerHTML=
+"<h3>Total Users: "
++
+users.length+
+"</h3>";
+
+users.forEach(user=>{
+
+if(user===userName){
+
+panel.innerHTML+=
+"<div>("+
+user+
+" YOU)</div>";
+
+}
+else{
+
+panel.innerHTML+=
+"<div>("+
+user+
+")</div>";
+
+}
+
+});
+
+});
 // copy room link
 window.copyRoomLink=function(){
 
@@ -855,8 +884,6 @@ y:e.offsetY
 );
 
 });
-
-
 // receive cursor
 socket.on(
 "cursorMove",
@@ -886,6 +913,12 @@ cursor.style.position=
 cursor.style.fontSize=
 "24px";
 
+cursor.style.pointerEvents=
+"none";
+
+cursor.style.zIndex=
+"9999";
+
 document
 .getElementById(
 "cursorContainer"
@@ -895,11 +928,30 @@ document
 }
 
 
+// IMPORTANT
+const rect=
+canvas.getBoundingClientRect();
+
+
 // move cursor
 cursor.style.left=
-data.x+"px";
+(rect.left+data.x)+"px";
 
 cursor.style.top=
-data.y+"px";
+(rect.top+data.y)+"px";
+
+cursor.style.display="block";
+
+clearTimeout(
+cursor.hideTimer
+);
+
+cursor.hideTimer=
+setTimeout(()=>{
+
+cursor.style.display=
+"none";
+
+},1000);
 
 });
